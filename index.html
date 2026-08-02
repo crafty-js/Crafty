@@ -9,358 +9,376 @@
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preconnect" href="https://api.lanyard.rest" crossorigin>
 <link rel="preconnect" href="https://cdn.discordapp.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <link rel="dns-prefetch" href="https://api.lanyard.rest">
 <link rel="dns-prefetch" href="https://cdn.discordapp.com">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap">
 
 <style>
+
+:root{
+    --blurple:#5865F2;
+    --blurple-glow:rgba(88,101,242,.55);
+    --bg:#050506;
+    --panel:#0b0b0e;
+    --panel-2:#0f0f13;
+    --line:#1c1c22;
+    --line-hover:#5865F2;
+    --text-dim:#8a8a93;
+    --text-dimmer:#55555c;
+    --green:#23a559;
+    --spotify:#1DB954;
+}
 
 * {
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
 }
 
+html{
+    color-scheme:dark;
+}
 
 body {
-
+    font-family:'Inter', Arial, sans-serif;
     min-height:100vh;
-
-    background:#000000;
-
+    background:var(--bg);
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     color:white;
-
-    padding:40px 20px;
-
+    padding:60px 20px;
+    position:relative;
+    overflow-x:hidden;
 }
 
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(88,101,242,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88,101,242,.06) 1px, transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 20%, black 10%, transparent 75%);
+    mask-image:radial-gradient(ellipse 70% 55% at 50% 20%, black 10%, transparent 75%);
+    pointer-events:none;
+    z-index:0;
+}
+
+.glow-orb{
+    position:fixed;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--blurple-glow) 0%, transparent 70%);
+    top:-260px;
+    left:50%;
+    transform:translateX(-50%);
+    opacity:.35;
+    filter:blur(10px);
+    pointer-events:none;
+    z-index:0;
+    animation:orb-pulse 6s ease-in-out infinite;
+}
+
+@keyframes orb-pulse{
+    0%,100%{ opacity:.28; }
+    50%{ opacity:.42; }
+}
 
 .container {
-
     text-align:center;
-
+    position:relative;
+    z-index:1;
+    animation:rise .7s cubic-bezier(.16,1,.3,1) both;
 }
 
+@keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+}
+
+@keyframes blink{
+    0%,100%{ opacity:1; }
+    50%{ opacity:.35; }
+}
 
 h1 {
-
-    font-size:70px;
-
-    font-weight:800;
-
-    letter-spacing:-2px;
-
+    font-family:'Space Grotesk', sans-serif;
+    font-size:68px;
+    font-weight:700;
+    letter-spacing:-2.5px;
+    line-height:1.05;
 }
-
 
 .blurple {
-
-    color:#5865F2;
-
+    color:var(--blurple);
     text-shadow:
-    0 0 10px rgba(88,101,242,.8),
-    0 0 25px rgba(88,101,242,.5);
-
+    0 0 18px rgba(88,101,242,.75),
+    0 0 40px rgba(88,101,242,.35);
 }
-
 
 .main-text {
-
-    margin-top:15px;
-
-    color:#a1a1a1;
-
-    font-size:20px;
-
+    margin-top:16px;
+    color:var(--text-dim);
+    font-size:18px;
+    letter-spacing:.01em;
 }
 
+.main-text .sep{
+    color:var(--text-dimmer);
+    margin:0 8px;
+}
+
+.view-projects{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:26px;
+    color:var(--blurple);
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    padding:10px 18px;
+    border:1px solid var(--line);
+    border-radius:100px;
+    background:var(--panel);
+    transition:.25s ease;
+}
+
+.view-projects i{
+    transition:transform .25s ease;
+    font-size:12px;
+}
+
+.view-projects:hover{
+    border-color:var(--blurple);
+    box-shadow:0 0 20px rgba(88,101,242,.28);
+    color:white;
+}
+
+.view-projects:hover i{
+    transform:translateX(4px);
+}
 
 .icons {
-
-    margin-top:35px;
-
+    margin-top:32px;
     display:flex;
-
     justify-content:center;
-
-    gap:18px;
-
+    gap:16px;
 }
-
 
 .icon {
-
-    width:60px;
-
-    height:60px;
-
-    background:#0c0c0c;
-
-    border:1px solid #232323;
-
+    width:56px;
+    height:56px;
+    background:var(--panel);
+    border:1px solid var(--line);
     border-radius:16px;
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     color:white;
-
-    font-size:28px;
-
+    font-size:24px;
     text-decoration:none;
-
     cursor:pointer;
-
-    transition:.3s ease;
-
+    transition:.3s cubic-bezier(.16,1,.3,1);
+    position:relative;
 }
-
 
 .icon:hover {
-
     transform:translateY(-6px);
-
-    color:#5865F2;
-
-    border-color:#5865F2;
-
-    box-shadow:
-    0 0 15px rgba(88,101,242,.4);
-
+    color:var(--blurple);
+    border-color:var(--blurple);
+    box-shadow:0 8px 24px rgba(88,101,242,.35);
 }
 
+.card-perspective{
+    margin:38px auto 0;
+    width:380px;
+    max-width:100%;
+    perspective:900px;
+}
 
 .discord-card {
-
-    margin:35px auto 0;
-
-    width:350px;
-
-    background:#0c0c0c;
-
-    border:1px solid #232323;
-
-    border-radius:20px;
-
-    padding:20px;
-
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:0;
     text-align:left;
-
-    transition:.3s ease;
-
+    transition:transform .12s ease-out, border-color .3s ease, box-shadow .3s ease;
+    position:relative;
+    transform-style:preserve-3d;
+    will-change:transform;
 }
 
-
-.discord-card:hover {
-
-    transform:translateY(-5px);
-
-    border-color:#5865F2;
-
-    box-shadow:
-    0 0 20px rgba(88,101,242,.35);
-
+.discord-card.hovering{
+    border-color:var(--blurple);
+    box-shadow:0 20px 50px -10px rgba(88,101,242,.4);
 }
 
+.card-banner{
+    height:74px;
+    width:100%;
+    border-radius:22px 22px 0 0;
+    background:
+        radial-gradient(circle at 20% 0%, rgba(88,101,242,.55), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(88,101,242,.3), transparent 55%),
+        linear-gradient(120deg, #14141c, #0a0a0d);
+    position:relative;
+    overflow:hidden;
+}
 
+.card-banner::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:14px 14px;
+    -webkit-mask-image:linear-gradient(180deg, black, transparent);
+    mask-image:linear-gradient(180deg, black, transparent);
+}
+
+.card-body{
+    padding:0 20px 20px;
+}
 
 .discord-header {
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
-    font-size:18px;
-
-    font-weight:bold;
-
+    font-size:13px;
+    font-weight:600;
+    padding-top:14px;
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--text-dim);
 }
 
 .discord-header-left {
-
     display:flex;
-
     align-items:center;
-
-    gap:10px;
-
+    gap:8px;
 }
-
 
 .discord-header i {
-
-    color:#5865F2;
-
+    color:var(--blurple);
 }
 
-
-.discord-status {
-
+.discord-user {
     display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin-top:12px;
-
-    color:#a1a1a1;
-
-    font-size:14px;
-
+    align-items:flex-end;
+    gap:16px;
+    margin-top:-30px;
 }
 
-
-.status-dot {
-
-    width:10px;
-
-    height:10px;
-
-    border-radius:50%;
-
-    background:#23a559;
-
+.avatar-wrap {
+    position:relative;
+    width:76px;
+    height:76px;
     flex-shrink:0;
-
 }
 
-.status-dot[data-status="online"] {
-    background:#23a559;
-}
-
-.status-dot[data-status="idle"] {
-    background:#f0b232;
-}
-
-.status-dot[data-status="dnd"] {
-    background:#f23f43;
-}
-
-.status-dot[data-status="offline"] {
-    background:#80848e;
-}
-
-
-
-.status-dot.vr {
-    width:16px;
-    height:16px;
+.avatar-ring{
+    position:absolute;
+    inset:-4px;
     border-radius:50%;
-    background:#23a559;
+    background:conic-gradient(from 0deg, var(--blurple), transparent 40%, var(--blurple));
+    animation:spin 4s linear infinite;
+    opacity:0;
+    transition:opacity .3s ease;
+}
+
+.avatar-ring.active{
+    opacity:1;
+}
+
+@keyframes spin{
+    to{ transform:rotate(360deg); }
+}
+
+.discord-user img.avatar {
+    width:76px;
+    height:76px;
+    border-radius:50%;
+    display:block;
+    border:4px solid var(--panel);
+    position:relative;
+    background:var(--panel);
+}
+
+.avatar-decoration {
+    position:absolute;
+    top:-8px;
+    left:-8px;
+    width:92px;
+    height:92px;
+    pointer-events:none;
+}
+
+.status-dot{
+    position:absolute;
+    bottom:-2px;
+    right:-2px;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:var(--panel);
+    border:3px solid var(--panel);
+    box-sizing:content-box;
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
+.status-dot svg{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+.status-dot.vr {
+    background:var(--green);
+}
+
 .status-dot.vr i {
-    font-size:10px;
+    font-size:9px;
     color:#000000;
 }
 
-
-
-.discord-user {
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    margin-top:20px;
-
+.name-block{
+    padding-bottom:4px;
 }
-
-
-.avatar-wrap {
-
-    position:relative;
-
-    width:55px;
-
-    height:55px;
-
-    flex-shrink:0;
-
-}
-
-
-.discord-user img.avatar {
-
-    width:55px;
-
-    height:55px;
-
-    border-radius:50%;
-
-    display:block;
-
-}
-
-
-.avatar-decoration {
-
-    position:absolute;
-
-    top:-6px;
-
-    left:-6px;
-
-    width:67px;
-
-    height:67px;
-
-    pointer-events:none;
-
-}
-
-
 
 .discord-user h3 {
-
-    font-size:18px;
-
+    font-family:'Space Grotesk', sans-serif;
+    font-size:19px;
+    font-weight:600;
 }
-
 
 .discord-user p {
-
-    margin-top:5px;
-
-    color:#888;
-
-    font-size:14px;
-
+    margin-top:4px;
+    color:var(--text-dim);
+    font-size:13px;
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
-
 
 /* Badges */
 
 .badges {
-
-    margin-top:16px;
-
+    margin-top:18px;
     display:flex;
-
     flex-wrap:wrap;
-
     gap:8px;
-
 }
 
 .badges.hidden {
@@ -368,46 +386,49 @@ h1 {
 }
 
 .badge {
-
-    width:26px;
-
-    height:26px;
-
-    border-radius:8px;
-
-    background:#161616;
-
-    border:1px solid #262626;
-
+    width:28px;
+    height:28px;
+    border-radius:9px;
+    background:var(--panel);
+    border:1px solid var(--line);
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-size:13px;
+    color:var(--blurple);
+    transition:.25s ease;
+}
 
-    color:#5865F2;
+.badge:hover{
+    border-color:var(--blurple);
+    transform:translateY(-2px);
+}
 
+/* Activity row (non-spotify) */
+.activity-row{
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--text-dim);
+    font-size:13px;
+}
+
+.activity-row i{
+    color:var(--blurple);
+    font-size:13px;
 }
 
 
-/* Spotify */
-
 .spotify-card {
-
     margin-top:16px;
-
     padding-top:16px;
-
-    border-top:1px solid #232323;
-
+    border-top:1px solid var(--line);
     display:none;
-
     align-items:center;
-
     gap:12px;
-
 }
 
 .spotify-card.show {
@@ -415,97 +436,62 @@ h1 {
 }
 
 .spotify-card img {
-
-    width:46px;
-
-    height:46px;
-
-    border-radius:8px;
-
+    width:48px;
+    height:48px;
+    border-radius:9px;
     flex-shrink:0;
-
+    box-shadow:0 4px 14px rgba(29,185,84,.25);
 }
 
 .spotify-info {
-
     min-width:0;
-
     flex:1;
-
 }
 
 .spotify-info .sp-title {
-
-    font-size:13px;
-
-    font-weight:bold;
-
-    color:#1DB954;
-
+    font-size:12px;
+    font-weight:700;
+    color:var(--spotify);
     display:flex;
-
     align-items:center;
-
     gap:6px;
-
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:.04em;
+    text-transform:uppercase;
 }
 
 .spotify-info .sp-song {
-
-    margin-top:3px;
-
+    margin-top:4px;
     font-size:13px;
-
     color:white;
-
+    font-weight:500;
     white-space:nowrap;
-
     overflow:hidden;
-
     text-overflow:ellipsis;
-
 }
 
 .spotify-info .sp-artist {
-
     margin-top:2px;
-
     font-size:12px;
-
-    color:#888;
-
+    color:var(--text-dim);
     white-space:nowrap;
-
     overflow:hidden;
-
     text-overflow:ellipsis;
-
 }
 
 .sp-bars {
-
     display:flex;
-
     align-items:flex-end;
-
-    gap:2px;
-
-    height:14px;
-
+    gap:2.5px;
+    height:16px;
     flex-shrink:0;
-
 }
 
 .sp-bars span {
-
     width:3px;
-
-    background:#1DB954;
-
+    background:var(--spotify);
     border-radius:1px;
-
     animation:sp-bounce 1s ease-in-out infinite;
-
 }
 
 .sp-bars span:nth-child(1){height:40%;animation-delay:0s;}
@@ -517,110 +503,65 @@ h1 {
     50% { height:100%; }
 }
 
-
 .notification {
-
     position:fixed;
-
     bottom:30px;
-
     left:50%;
-
     transform:translateX(-50%);
-
-    background:#5865F2;
-
+    background:var(--blurple);
     padding:12px 25px;
-
     border-radius:12px;
-
+    font-size:14px;
+    font-weight:500;
     opacity:0;
-
     pointer-events:none;
-
     transition:.3s ease;
-
+    box-shadow:0 10px 30px rgba(88,101,242,.4);
+    z-index:20;
 }
-
 
 .notification.show {
-
     opacity:1;
-
     bottom:50px;
-
 }
 
 
-/* Lanyard loading reminder */
-
 .lanyard-reminder {
-
     position:fixed;
-
     top:30px;
-
     left:50%;
-
     transform:translateX(-50%);
-
-    background:#0c0c0c;
-
-    border:1px solid #232323;
-
-    color:#a1a1a1;
-
-    padding:12px 22px;
-
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--text-dim);
+    padding:11px 20px;
     border-radius:12px;
-
-    font-size:14px;
-
+    font-size:13px;
     display:flex;
-
     align-items:center;
-
-    gap:10px;
-
+    gap:9px;
     opacity:0;
-
     filter:blur(8px);
-
     pointer-events:none;
-
     transition:opacity 1s ease, filter 1s ease;
-
     z-index:999;
-
 }
 
 .lanyard-reminder i {
-
-    color:#5865F2;
-
+    color:var(--blurple);
 }
 
 .lanyard-reminder.show {
-
     opacity:1;
-
     filter:blur(0px);
-
 }
 
 
-/* Spotify embed player */
-
 .spotify-embed-wrap {
-
     margin-top:16px;
-
     padding-top:16px;
-
-    border-top:1px solid #232323;
-
+    border-top:1px solid var(--line);
     display:none;
-
 }
 
 .spotify-embed-wrap.show {
@@ -628,13 +569,22 @@ h1 {
 }
 
 .spotify-embed-wrap iframe {
-
     border-radius:12px;
-
     width:100%;
-
 }
 
+@media (prefers-reduced-motion: reduce){
+    *{
+        animation-duration:0.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:0.01ms !important;
+    }
+}
+
+@media (max-width:420px){
+    h1{ font-size:44px; }
+    .discord-card{ width:100%; }
+}
 
 </style>
 
@@ -643,140 +593,106 @@ h1 {
 
 <body>
 
+<div class="glow-orb"></div>
 
 <div class="container">
-
 
 <h1>
 Hey, I'm <span class="blurple">Crafty!</span>
 </h1>
 
-
 <p class="main-text">
-Management - Programming - Moderation - VR
+Management, programming, moderation & VR
 </p>
 
-
-<a href="projects.html" style="display:inline-block;margin-top:20px;color:#5865F2;text-decoration:none;font-size:15px;font-weight:bold;">
+<a href="projects.html" class="view-projects">
 View my Projects <i class="fa-solid fa-arrow-right"></i>
 </a>
 
-
-
 <div class="icons">
-
 
 <div class="icon" onclick="copyDiscord()" title="Copy Discord">
 <i class="fa-brands fa-discord"></i>
 </div>
 
-
 <a class="icon"
 href="https://crafty-js.github.io/"
 target="_blank"
 title="GitHub">
-
 <i class="fa-brands fa-github"></i>
-
 </a>
-
-
 
 <a class="icon"
 href="https://guns.lol/synth.cyber"
 target="_blank"
 title="Emoji.gg">
-
 <i class="fa-regular fa-face-smile-beam"></i>
-
 </a>
 
-
 </div>
 
 
+<div class="card-perspective">
+<div class="discord-card" id="discord-card">
 
-<div class="discord-card">
+<div class="card-banner"></div>
 
+<div class="card-body">
 
 <div class="discord-header">
-
 <div class="discord-header-left">
 <i class="fa-brands fa-discord"></i>
-<span>Live Discord</span>
+<span>Live Presence</span>
 </div>
-
 </div>
-
-
-
-<div class="discord-status">
-
-<div class="status-dot" id="status-dot" data-status="online"></div>
-
-<span id="status">Online</span>
-
-</div>
-
-
 
 <div class="discord-user">
 
-
 <div class="avatar-wrap">
+<div class="avatar-ring" id="avatar-ring"></div>
 <img id="discord-avatar"
 class="avatar"
 src="https://cdn.discordapp.com/embed/avatars/0.png"
 loading="eager"
 decoding="async">
 <img id="avatar-decoration" class="avatar-decoration" style="display:none;">
+<div class="status-dot" id="status-dot" data-status="online"></div>
 </div>
 
-
-<div>
-
-<h3 id="discord-name">
-Loading...
-</h3>
-
-
-<p id="discord-activity">
-Loading activity...
-</p>
-
-
+<div class="name-block">
+<h3 id="discord-name">Loading...</h3>
+<p id="discord-status-text"><span id="status">Connecting...</span></p>
 </div>
 
-
 </div>
-
 
 <div class="badges hidden" id="badges"></div>
 
+<div class="activity-row" id="activity-row" style="display:none;">
+<i class="fa-solid fa-gamepad"></i>
+<span id="discord-activity">No activity</span>
+</div>
 
 <div class="spotify-embed-wrap" id="spotify-embed-wrap">
-
 <iframe id="spotify-embed"
 title="Spotify player"
 frameborder="0"
 allow="autoplay; encrypted-media; clipboard-write"
 loading="lazy">
 </iframe>
+</div>
 
 </div>
 
+</div>
 
 </div>
 
-
 </div>
-
 
 
 <div class="notification" id="notification">
-
 Discord username copied!
-
 </div>
 
 
@@ -786,34 +702,16 @@ Discord username copied!
 </div>
 
 
-
 <script>
 
-
 function copyDiscord(){
-
 navigator.clipboard.writeText("crafty.js");
-
-
-let notification =
-document.getElementById("notification");
-
-
+let notification = document.getElementById("notification");
 notification.classList.add("show");
-
-
-setTimeout(()=>{
-
-notification.classList.remove("show");
-
-},2500);
-
-
+setTimeout(()=>{ notification.classList.remove("show"); },2500);
 }
 
-
 const discordID = "1315134950185373697";
-
 
 const statusLabels = {
     online:"Online",
@@ -822,8 +720,6 @@ const statusLabels = {
     offline:"Offline"
 };
 
-
-// Common Discord public_flags badges (bitwise)
 const BADGE_FLAGS = [
     { bit:1<<0,  icon:"fa-solid fa-user-shield",  title:"Discord Staff" },
     { bit:1<<1,  icon:"fa-solid fa-handshake",    title:"Partnered Server Owner" },
@@ -839,27 +735,13 @@ const BADGE_FLAGS = [
     { bit:1<<22, icon:"fa-solid fa-hammer",       title:"Active Developer" }
 ];
 
-
 function renderBadges(publicFlags){
-
     const container = document.getElementById("badges");
-
     container.innerHTML = "";
-
-    if(!publicFlags){
-        container.classList.add("hidden");
-        return;
-    }
-
+    if(!publicFlags){ container.classList.add("hidden"); return; }
     const owned = BADGE_FLAGS.filter(b => (publicFlags & b.bit) === b.bit);
-
-    if(owned.length === 0){
-        container.classList.add("hidden");
-        return;
-    }
-
+    if(owned.length === 0){ container.classList.add("hidden"); return; }
     container.classList.remove("hidden");
-
     owned.forEach(b=>{
         const el = document.createElement("div");
         el.className = "badge";
@@ -867,237 +749,192 @@ function renderBadges(publicFlags){
         el.innerHTML = `<i class="${b.icon}"></i>`;
         container.appendChild(el);
     });
-
 }
-
 
 let currentSpotifyTrack = null;
 
 function renderSpotify(user){
-
     const wrap = document.getElementById("spotify-embed-wrap");
     const iframe = document.getElementById("spotify-embed");
+    const activityRow = document.getElementById("activity-row");
 
     if(user.listening_to_spotify && user.spotify && user.spotify.track_id){
-
-        // Only reload the embed if the track actually changed, so it doesn't
-        // restart itself every time the presence updates
         if(currentSpotifyTrack !== user.spotify.track_id){
-
             currentSpotifyTrack = user.spotify.track_id;
-
             iframe.src = `https://open.spotify.com/embed/track/${user.spotify.track_id}?utm_source=generator&theme=0&autoplay=1`;
             iframe.height = "152";
-
         }
-
         wrap.classList.add("show");
-
+        activityRow.style.display = "none";
     } else {
-
         currentSpotifyTrack = null;
         wrap.classList.remove("show");
         iframe.src = "";
-
     }
-
 }
-
 
 function renderPresence(user){
 
     document.getElementById("discord-name").innerText =
     user.discord_user.global_name || user.discord_user.username;
 
-
     const avatar = user.discord_user.avatar;
-
     document.getElementById("discord-avatar").src =
     avatar
-    ? `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${avatar}.png?size=64`
+    ? `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${avatar}.png?size=128`
     : "https://cdn.discordapp.com/embed/avatars/0.png";
 
-
-    // Profile decoration
     const decoEl = document.getElementById("avatar-decoration");
     const decoration = user.discord_user.avatar_decoration_data;
 
     if(decoration && decoration.asset){
-        decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${decoration.asset}.png?size=96`;
+        decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${decoration.asset}.png?size=160`;
         decoEl.style.display = "block";
     } else {
         decoEl.style.display = "none";
     }
 
+    const activityRow = document.getElementById("activity-row");
+    const hasSpotify = user.listening_to_spotify && user.spotify && user.spotify.track_id;
 
-    if(user.activities && user.activities.length > 0){
-
-    const activity = user.activities.find(a => a.type !== 4 && a.type !== 2) || user.activities[0];
-
-    document.getElementById("discord-activity").innerText =
-    activity.name;
-
+    if(user.activities && user.activities.length > 0 && !hasSpotify){
+        const activity = user.activities.find(a => a.type !== 4 && a.type !== 2) || user.activities[0];
+        document.getElementById("discord-activity").innerText = activity.name;
+        activityRow.style.display = "flex";
+    } else if(!hasSpotify){
+        document.getElementById("discord-activity").innerText = "No activity";
+        activityRow.style.display = "flex";
     }
-
-    else {
-
-    document.getElementById("discord-activity").innerText =
-    "No activity";
-
-    }
-
 
     renderBadges(user.discord_user.public_flags);
-
     renderSpotify(user);
 
-
     const dot = document.getElementById("status-dot");
-
+    const ring = document.getElementById("avatar-ring");
     const rawStatus = user.discord_status || "offline";
 
     dot.setAttribute("data-status", rawStatus);
-
+    ring.classList.toggle("active", rawStatus !== "offline");
 
     document.getElementById("status").innerText =
     statusLabels[rawStatus] || rawStatus;
-
 
     const onVR = user.activities && user.activities.some(a =>
     a.name && a.name.toLowerCase().includes("vr")
     );
 
-
     dot.classList.remove("vr");
-
     dot.innerHTML = "";
 
-
     if(rawStatus === "online" && onVR){
-
-    dot.classList.add("vr");
-
-    dot.innerHTML = '<i class="fa-solid fa-vr-cardboard"></i>';
-
-    document.getElementById("status").innerText = "Online on VR";
-
+        dot.classList.add("vr");
+        dot.innerHTML = '<i class="fa-solid fa-vr-cardboard"></i>';
+        document.getElementById("status").innerText = "Online on VR";
     }
-
 }
-
 
 function setOffline(){
-
     document.getElementById("discord-activity").innerText = "Offline";
-
+    document.getElementById("activity-row").style.display = "flex";
     document.getElementById("status-dot").setAttribute("data-status","offline");
-
+    document.getElementById("avatar-ring").classList.remove("active");
     document.getElementById("status").innerText = "Offline";
-
-    document.getElementById("spotify-card").classList.remove("show");
-
 }
 
-
-// Lanyard v2 - live via WebSocket, falls back to REST polling if it can't connect
 let socket;
 let heartbeatInterval;
 let reconnectTimeout;
 
 function connectLanyard(){
-
     try {
-
         socket = new WebSocket("wss://api.lanyard.rest/socket");
 
         socket.onopen = () => {
-
             socket.send(JSON.stringify({
                 op:2,
                 d:{ subscribe_to_id: discordID }
             }));
-
         };
 
         socket.onmessage = (event) => {
-
             const payload = JSON.parse(event.data);
 
             if(payload.op === 1){
-
                 const interval = payload.d.heartbeat_interval;
-
                 heartbeatInterval = setInterval(()=>{
                     if(socket.readyState === WebSocket.OPEN){
                         socket.send(JSON.stringify({ op:3 }));
                     }
                 }, interval);
-
             }
 
             if(payload.t === "INIT_STATE" || payload.t === "PRESENCE_UPDATE"){
-
                 renderPresence(payload.d);
-
             }
-
         };
 
         socket.onclose = () => {
-
             clearInterval(heartbeatInterval);
-
             reconnectTimeout = setTimeout(connectLanyard, 5000);
-
         };
 
         socket.onerror = () => {
-
             socket.close();
-
         };
 
     } catch(e){
-
         fallbackFetch();
-
     }
-
 }
 
-
 function fallbackFetch(){
-
     fetch(`https://api.lanyard.rest/v1/users/${discordID}`)
     .then(res=>res.json())
     .then(data=> renderPresence(data.data))
     .catch(setOffline);
-
 }
-
 
 connectLanyard();
 
+(function(){
+    const card = document.getElementById("discord-card");
+    if(!card) return;
+    const maxTilt = 10;
 
-// Lanyard loading reminder - fades in blurred, holds, fades out
+    function onMove(e){
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        const rotateY = (x - 0.5) * maxTilt * 2;
+        const rotateX = (0.5 - y) * maxTilt * 2;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(6px)`;
+    }
+
+    function onEnter(){
+        card.classList.add("hovering");
+    }
+
+    function onLeave(){
+        card.classList.remove("hovering");
+        card.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0px)";
+    }
+
+    if(window.matchMedia("(hover: hover) and (pointer: fine)").matches){
+        card.addEventListener("mousemove", onMove);
+        card.addEventListener("mouseenter", onEnter);
+        card.addEventListener("mouseleave", onLeave);
+    }
+})();
+
 window.addEventListener("DOMContentLoaded", () => {
-
     const reminder = document.getElementById("lanyard-reminder");
-
     setTimeout(()=>{
-
         reminder.classList.add("show");
-
         setTimeout(()=>{
-
             reminder.classList.remove("show");
-
         }, 4000);
-
     }, 400);
-
 });
-
 
 </script>
 
